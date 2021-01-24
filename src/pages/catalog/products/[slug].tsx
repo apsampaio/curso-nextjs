@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import SEO from "@/components/SEO";
 
 const AddToCartModal = dynamic(() => import("@/components/AddToCartModal"), {
   loading: () => <p>Loading...</p>,
@@ -15,6 +16,7 @@ export default function Product() {
 
   return (
     <div>
+      <SEO title="Produtos" />
       <h1>{router.query.slug}</h1>
       <button onClick={handleAddToCart}>Add To Cart</button>
 
