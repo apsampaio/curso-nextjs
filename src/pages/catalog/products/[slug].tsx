@@ -1,26 +1,58 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
-import dynamic from "next/dynamic";
-import SEO from "@/components/SEO";
+import { client } from "@/lib/prismic";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { Document } from "prismic-javascript/types/documents";
+import Prismic from "prismic-javascript";
+import PrismicDOM from "prismic-dom";
 
-const AddToCartModal = dynamic(() => import("@/components/AddToCartModal"), {
-  loading: () => <p>Loading...</p>,
-});
-export default function Product() {
-  const router = useRouter();
-  const [modalVisible, setModalVisible] = useState(false);
+interface ProductsProps {
+  product: Document;
+}
 
-  const handleAddToCart = () => {
-    setModalVisible(true);
-  };
+export default function Product({ product }: ProductsProps) {
+  const { query, isFallback } = useRouter();
+
+  if (isFallback) {
+    return <p>Carregando...</p>;
+  }
 
   return (
     <div>
-      <SEO title="Produtos" />
-      <h1>{router.query.slug}</h1>
-      <button onClick={handleAddToCart}>Add To Cart</button>
+      <h1>{PrismicDOM.RichText.asText(product.data.title)}</h1>
 
-      {modalVisible && <AddToCartModal />}
+      <img
+        src={product.data.thumbnail.url}
+        width="300"
+        alt="foto-ilustrativa"
+      />
+
+      <div
+        dangerouslySetInnerHTML={{
+          __html: PrismicDOM.RichText.asHtml(product.data.description),
+        }}
+      ></div>
+
+      <p>Price: ${product.data.price}</p>
     </div>
   );
 }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: true,
+  };
+};
+
+export const getStaticProps: GetStaticProps<ProductsProps> = async (ctx) => {
+  const { slug } = ctx.params;
+
+  const product = await client().getByUID("product", String(slug), {});
+
+  return {
+    props: {
+      product,
+    },
+    revalidate: 5,
+  };
+};
