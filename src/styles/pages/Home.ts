@@ -1,5 +1,9 @@
 import styled, { keyframes } from "styled-components";
 
+interface textProps {
+  borderBottomColors: string;
+}
+
 export const BackgroundShape = styled.div`
   position: fixed;
   z-index: -1;
@@ -29,9 +33,11 @@ const showBottomText = keyframes`
 
 export const AnimatedTitle = styled.div`
   font-family: Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 700;
   height: 90vmin;
-  left: 50%;
   position: absolute;
+  left: 30%;
   top: 50%;
   transform: translate(-50%, -50%);
   width: 90vmin;
@@ -52,7 +58,8 @@ export const AnimatedTitle = styled.div`
     display: block;
   }
   & > div.text-top {
-    border-bottom: 1vmin solid #000;
+    border-bottom: 1vmin solid
+      ${({ borderBottomColors }: textProps) => borderBottomColors};
     top: 0;
   }
   & > div.text-top div {
@@ -64,8 +71,14 @@ export const AnimatedTitle = styled.div`
   }
 
   & > div.text-top div span:first-child {
-    color: #767676;
+    color: ${({ borderBottomColors }: textProps) => borderBottomColors};
   }
+
+  & > div.text-top div span:last-child {
+    font-size: 8vmin;
+    margin-left: 12px;
+  }
+
   & > div.text-bottom {
     bottom: 0;
   }

@@ -9,6 +9,7 @@ import {
   BackgroundShape,
   AgentBanner,
   AnimatedTitle,
+  ExploreButton,
 } from "../styles/pages/Home";
 
 interface HomeProps {
@@ -18,7 +19,7 @@ interface HomeProps {
 export default function Home({ agentData }: HomeProps) {
   return (
     <div>
-      <AnimatedTitle>
+      <AnimatedTitle borderBottomColors={agentData.data.shape_color[0].text}>
         <div className="text-top">
           <div>
             <span>Welcome</span>
@@ -26,7 +27,7 @@ export default function Home({ agentData }: HomeProps) {
           </div>
         </div>
         <div className="text-bottom">
-          <div>Showcase</div>
+          <div>Showcase!</div>
         </div>
       </AnimatedTitle>
       <BackgroundShape />
@@ -41,6 +42,8 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   // ]);
 
   const agent = await client().getByUID("agent", "sage", {});
+
+  console.log();
 
   return {
     props: {
