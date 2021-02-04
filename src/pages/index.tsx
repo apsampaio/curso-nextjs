@@ -9,7 +9,6 @@ import {
   BackgroundShape,
   AgentBanner,
   AnimatedTitle,
-  ExploreButton,
 } from "../styles/pages/Home";
 
 interface HomeProps {
