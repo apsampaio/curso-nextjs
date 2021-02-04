@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const BackgroundShape = styled.div`
   position: fixed;
@@ -14,4 +14,66 @@ export const BackgroundShape = styled.div`
 export const AgentBanner = styled.img`
   position: fixed;
   right: 0;
+`;
+
+const showTopText = keyframes`
+  0% { transform: translate3d(0, 100%, 0); }
+  40%, 60% { transform: translate3d(0, 50%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+`;
+
+const showBottomText = keyframes`
+  0% { transform: translate3d(0, -100%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+`;
+
+export const AnimatedTitle = styled.div`
+  font-family: Roboto, Arial, sans-serif;
+  height: 90vmin;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vmin;
+
+  & > div {
+    height: 50%;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+  }
+
+  & > div div {
+    font-size: 12vmin;
+    padding: 2vmin 0;
+    position: absolute;
+  }
+  & > div div span {
+    display: block;
+  }
+  & > div.text-top {
+    border-bottom: 1vmin solid #000;
+    top: 0;
+  }
+  & > div.text-top div {
+    animation: ${showTopText} 1s;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+    bottom: 0;
+    transform: translate(0, 100%);
+  }
+
+  & > div.text-top div span:first-child {
+    color: #767676;
+  }
+  & > div.text-bottom {
+    bottom: 0;
+  }
+  & > div.text-bottom div {
+    animation: ${showBottomText} 0.5s;
+    animation-delay: 1.75s;
+    animation-fill-mode: forwards;
+    top: 0;
+    transform: translate(0, -100%);
+  }
 `;

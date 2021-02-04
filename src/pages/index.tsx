@@ -5,7 +5,11 @@ import PrismicDOM from "prismic-dom";
 import { Document } from "prismic-javascript/types/documents";
 import { client } from "@/lib/prismic";
 
-import { BackgroundShape, AgentBanner } from "../styles/pages/Home";
+import {
+  BackgroundShape,
+  AgentBanner,
+  AnimatedTitle,
+} from "../styles/pages/Home";
 
 interface HomeProps {
   agentData: Document;
@@ -14,6 +18,17 @@ interface HomeProps {
 export default function Home({ agentData }: HomeProps) {
   return (
     <div>
+      <AnimatedTitle>
+        <div className="text-top">
+          <div>
+            <span>Welcome</span>
+            <span>to Valorant weapons</span>
+          </div>
+        </div>
+        <div className="text-bottom">
+          <div>Showcase</div>
+        </div>
+      </AnimatedTitle>
       <BackgroundShape />
       <AgentBanner src={agentData.data.agent_banner.url} />
     </div>
