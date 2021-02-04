@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Image from "next/image";
 
 export const BackgroundShape = styled.div`
   position: fixed;
@@ -12,4 +11,7 @@ export const BackgroundShape = styled.div`
   transform: skew(-25deg);
 `;
 
-export const AgentBanner = styled.img``;
+export const AgentBanner = styled.img`
+  position: fixed;
+  right: 0;
+`;
