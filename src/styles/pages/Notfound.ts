@@ -36,15 +36,27 @@ const glitchBotom = keyframes`
 `;
 
 export const Glitch404 = styled.div`
+  font-family: "Fira Mono", monospace;
+  font-size: 96px;
+  letter-spacing: -7px;
+  color: #fff;
+
   animation: ${glitch} 1s linear infinite;
 
-  &:before {
+  &::before,
+  &::after {
+    content: attr(title);
+    position: absolute;
+    left: 0;
+  }
+
+  &::before {
     animation: ${glitchTop} 1s linear infinite;
     clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
   }
 
-  &:after {
+  &::after {
     animation: ${glitchBotom} 1.5s linear infinite;
     clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
     -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
@@ -53,14 +65,17 @@ export const Glitch404 = styled.div`
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
   align-items: center;
   justify-content: center;
   margin: 0;
-  color: #fff;
   background: #131313;
+`;
 
-  font-size: 96px;
-  letter-spacing: -7px;
+export const Message = styled.p`
+  font-family: "Fira Mono", monospace;
+  font-size: 20px;
+  color: #fff;
 `;
