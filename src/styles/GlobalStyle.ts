@@ -10,7 +10,7 @@ export default createGlobalStyle`
 
 
 body {
-    background-color: #121214;
+    background-color: #08080A;
     color: #F8F8F8;
     font-family: Roboto, Arial, Helvetica, sans-serif;
 }

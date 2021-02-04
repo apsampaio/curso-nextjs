@@ -1,44 +1,52 @@
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { Title } from "../styles/pages/Home";
-
 import Prismic from "prismic-javascript";
 import PrismicDOM from "prismic-dom";
+import { Document } from "prismic-javascript/types/documents";
 import { client } from "@/lib/prismic";
 
-import { Document } from "prismic-javascript/types/documents";
+import {
+  BackgroundShape,
+  AgentBanner,
+  AnimatedTitle,
+} from "../styles/pages/Home";
 
 interface HomeProps {
-  recommendedProducts: Document[];
+  agentData: Document;
 }
 
-export default function Home({ recommendedProducts }: HomeProps) {
+export default function Home({ agentData }: HomeProps) {
   return (
     <div>
-      <section>
-        <Title>Products</Title>
-        <ul>
-          {recommendedProducts.map(({ id, data, uid }) => (
-            <li key={id}>
-              <Link href={`/catalog/products/${uid}`}>
-                <a>{PrismicDOM.RichText.asText(data.title)}</a>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <AnimatedTitle borderBottomColors={agentData.data.shape_color[0].text}>
+        <div className="text-top">
+          <div>
+            <span>Welcome</span>
+            <span>to Valorant weapons</span>
+          </div>
+        </div>
+        <div className="text-bottom">
+          <div>Showcase!</div>
+        </div>
+      </AnimatedTitle>
+      <BackgroundShape />
+      <AgentBanner src={agentData.data.agent_banner.url} />
     </div>
   );
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  const recommendedProducts = await client().query([
-    Prismic.Predicates.at("document.type", "product"),
-  ]);
+  // const agents = await client().query([
+  //   Prismic.Predicates.at("document.type", "agent"),
+  // ]);
+
+  const agent = await client().getByUID("agent", "sage", {});
+
+  console.log();
 
   return {
     props: {
-      recommendedProducts: recommendedProducts.results,
+      agentData: agent,
     },
   };
 };

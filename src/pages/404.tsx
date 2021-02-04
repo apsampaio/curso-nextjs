@@ -1,8 +1,10 @@
+import { Glitch404, Container, Message } from "../styles/pages/Notfound";
+
 export default function NotFound() {
   return (
-    <div>
-      <h1> Page Not Found</h1>
-      <p>Are you lost?</p>
-    </div>
+    <Container>
+      <Glitch404 title="404">404</Glitch404>
+      <Message>Page not found.</Message>
+    </Container>
   );
 }
