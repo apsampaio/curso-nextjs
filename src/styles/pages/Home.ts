@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 
-interface textProps {
-  borderBottomColors: string;
+interface mainColorProps {
+  color: string;
 }
 
 export const BackgroundShape = styled.div`
@@ -9,15 +9,97 @@ export const BackgroundShape = styled.div`
   z-index: -1;
   height: 100vh;
   width: 40vw;
-  background-color: #19ffb5;
+  background-color: ${({ color }: mainColorProps) => color};
 
   right: -15vw;
   transform: skew(-25deg);
 `;
 
+const show = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1
+  }
+`;
+
 export const AgentBanner = styled.img`
   position: fixed;
   right: 0;
+  animation: ${show} 1s linear;
+`;
+
+export const ExploreButtonContainer = styled.div`
+  position: absolute;
+  left: 10%;
+  top: 75%;
+`;
+
+export const ExploreButton = styled.div`
+  background: transparent;
+  color: ${({ color }: mainColorProps) => color};
+  position: relative;
+  transition: all 500ms cubic-bezier(0.77, 0, 0.175, 1);
+  cursor: pointer;
+  user-select: none;
+  height: 10vmin;
+  width: 30vmin;
+
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 5vmin;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-left: 2px solid ${({ color }: mainColorProps) => color};
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    transition: inherit;
+    z-index: -1;
+  }
+
+  &:hover {
+    color: #08080a;
+    transition-delay: 0.5s;
+  }
+
+  &:hover:before {
+    transition-delay: 0s;
+  }
+
+  &:hover:after {
+    background: ${({ color }: mainColorProps) => color};
+    transition-delay: 0.35s;
+  }
+
+  &:before,
+  &:after {
+    top: 0;
+    width: 0;
+    height: 100%;
+  }
+
+  &:before {
+    right: 0;
+    border: 2px solid ${({ color }: mainColorProps) => color};
+    border-left: 0;
+    border-right: 0;
+  }
+
+  &:after {
+    left: 0;
+  }
+
+  &:hover:before,
+  &:hover:after {
+    width: 100%;
+  }
 `;
 
 const showTopText = keyframes`
@@ -58,8 +140,7 @@ export const AnimatedTitle = styled.div`
     display: block;
   }
   & > div.text-top {
-    border-bottom: 1vmin solid
-      ${({ borderBottomColors }: textProps) => borderBottomColors};
+    border-bottom: 1vmin solid ${({ color }: mainColorProps) => color};
     top: 0;
   }
   & > div.text-top div {
@@ -71,7 +152,7 @@ export const AnimatedTitle = styled.div`
   }
 
   & > div.text-top div span:first-child {
-    color: ${({ borderBottomColors }: textProps) => borderBottomColors};
+    color: ${({ color }: mainColorProps) => color};
   }
 
   & > div.text-top div span:last-child {

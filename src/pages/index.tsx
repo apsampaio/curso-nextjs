@@ -9,6 +9,8 @@ import {
   BackgroundShape,
   AgentBanner,
   AnimatedTitle,
+  ExploreButton,
+  ExploreButtonContainer,
 } from "../styles/pages/Home";
 
 interface HomeProps {
@@ -18,35 +20,41 @@ interface HomeProps {
 export default function Home({ agentData }: HomeProps) {
   return (
     <div>
-      <AnimatedTitle borderBottomColors={agentData.data.shape_color[0].text}>
+      <AnimatedTitle color={agentData.data.shape_color[0].text}>
         <div className="text-top">
           <div>
             <span>Welcome</span>
-            <span>to Valorant weapons</span>
+            <span>to Valorant agent</span>
           </div>
         </div>
         <div className="text-bottom">
           <div>Showcase!</div>
         </div>
       </AnimatedTitle>
-      <BackgroundShape />
+      <ExploreButtonContainer>
+        <ExploreButton
+          className="from-top"
+          color={agentData.data.shape_color[0].text}
+        >
+          EXPLORE
+        </ExploreButton>
+      </ExploreButtonContainer>
+      <BackgroundShape color={agentData.data.shape_color[0].text} />
       <AgentBanner src={agentData.data.agent_banner.url} />
     </div>
   );
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  // const agents = await client().query([
-  //   Prismic.Predicates.at("document.type", "agent"),
-  // ]);
+  const { results } = await client().query([
+    Prismic.Predicates.at("document.type", "agent"),
+  ]);
 
-  const agent = await client().getByUID("agent", "sage", {});
-
-  console.log();
+  const randomAgent = results[(results.length * Math.random()) | 0];
 
   return {
     props: {
-      agentData: agent,
+      agentData: randomAgent,
     },
   };
 };
