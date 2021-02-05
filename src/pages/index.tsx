@@ -20,7 +20,7 @@ interface HomeProps {
 export default function Home({ agentData }: HomeProps) {
   return (
     <div>
-      <AnimatedTitle borderBottomColors={agentData.data.shape_color[0].text}>
+      <AnimatedTitle color={agentData.data.shape_color[0].text}>
         <div className="text-top">
           <div>
             <span>Welcome</span>
@@ -34,12 +34,12 @@ export default function Home({ agentData }: HomeProps) {
       <ExploreButtonContainer>
         <ExploreButton
           className="from-top"
-          borderColor={agentData.data.shape_color[0].text}
+          color={agentData.data.shape_color[0].text}
         >
           EXPLORE
         </ExploreButton>
       </ExploreButtonContainer>
-      <BackgroundShape />
+      <BackgroundShape color={agentData.data.shape_color[0].text} />
       <AgentBanner src={agentData.data.agent_banner.url} />
     </div>
   );

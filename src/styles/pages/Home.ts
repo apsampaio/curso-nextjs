@@ -1,11 +1,7 @@
 import styled, { keyframes } from "styled-components";
 
-interface textProps {
-  borderBottomColors: string;
-}
-
-interface colorProps {
-  borderColor: string;
+interface mainColorProps {
+  color: string;
 }
 
 export const BackgroundShape = styled.div`
@@ -13,7 +9,7 @@ export const BackgroundShape = styled.div`
   z-index: -1;
   height: 100vh;
   width: 40vw;
-  background-color: #19ffb5;
+  background-color: ${({ color }: mainColorProps) => color};
 
   right: -15vw;
   transform: skew(-25deg);
@@ -42,7 +38,7 @@ export const ExploreButtonContainer = styled.div`
 
 export const ExploreButton = styled.div`
   background: transparent;
-  color: ${({ borderColor }: colorProps) => borderColor};
+  color: ${({ color }: mainColorProps) => color};
   position: relative;
   transition: all 500ms cubic-bezier(0.77, 0, 0.175, 1);
   cursor: pointer;
@@ -58,7 +54,7 @@ export const ExploreButton = styled.div`
   align-items: center;
   justify-content: center;
 
-  border-left: 2px solid ${({ borderColor }: colorProps) => borderColor};
+  border-left: 2px solid ${({ color }: mainColorProps) => color};
 
   &:before,
   &:after {
@@ -78,7 +74,7 @@ export const ExploreButton = styled.div`
   }
 
   &:hover:after {
-    background: ${({ borderColor }: colorProps) => borderColor};
+    background: ${({ color }: mainColorProps) => color};
     transition-delay: 0.35s;
   }
 
@@ -91,7 +87,7 @@ export const ExploreButton = styled.div`
 
   &:before {
     right: 0;
-    border: 2px solid ${({ borderColor }: colorProps) => borderColor};
+    border: 2px solid ${({ color }: mainColorProps) => color};
     border-left: 0;
     border-right: 0;
   }
@@ -144,8 +140,7 @@ export const AnimatedTitle = styled.div`
     display: block;
   }
   & > div.text-top {
-    border-bottom: 1vmin solid
-      ${({ borderBottomColors }: textProps) => borderBottomColors};
+    border-bottom: 1vmin solid ${({ color }: mainColorProps) => color};
     top: 0;
   }
   & > div.text-top div {
@@ -157,7 +152,7 @@ export const AnimatedTitle = styled.div`
   }
 
   & > div.text-top div span:first-child {
-    color: ${({ borderBottomColors }: textProps) => borderBottomColors};
+    color: ${({ color }: mainColorProps) => color};
   }
 
   & > div.text-top div span:last-child {
