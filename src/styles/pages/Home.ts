@@ -15,9 +15,19 @@ export const BackgroundShape = styled.div`
   transform: skew(-25deg);
 `;
 
+const show = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1
+  }
+`;
+
 export const AgentBanner = styled.img`
   position: fixed;
   right: 0;
+  animation: ${show} 1s linear;
 `;
 
 const showTopText = keyframes`
