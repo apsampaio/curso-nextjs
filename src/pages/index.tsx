@@ -24,7 +24,7 @@ export default function Home({ agentData }: HomeProps) {
         <div className="text-top">
           <div>
             <span>Welcome</span>
-            <span>to Valorant weapons</span>
+            <span>to Valorant agent</span>
           </div>
         </div>
         <div className="text-bottom">
@@ -46,17 +46,15 @@ export default function Home({ agentData }: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  // const agents = await client().query([
-  //   Prismic.Predicates.at("document.type", "agent"),
-  // ]);
+  const { results } = await client().query([
+    Prismic.Predicates.at("document.type", "agent"),
+  ]);
 
-  const agent = await client().getByUID("agent", "sage", {});
-
-  console.log();
+  const randomAgent = results[(results.length * Math.random()) | 0];
 
   return {
     props: {
-      agentData: agent,
+      agentData: randomAgent,
     },
   };
 };
