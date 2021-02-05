@@ -4,6 +4,10 @@ interface textProps {
   borderBottomColors: string;
 }
 
+interface colorProps {
+  borderColor: string;
+}
+
 export const BackgroundShape = styled.div`
   position: fixed;
   z-index: -1;
@@ -28,6 +32,78 @@ export const AgentBanner = styled.img`
   position: fixed;
   right: 0;
   animation: ${show} 1s linear;
+`;
+
+export const ExploreButtonContainer = styled.div`
+  position: absolute;
+  left: 10%;
+  top: 75%;
+`;
+
+export const ExploreButton = styled.div`
+  background: transparent;
+  color: ${({ borderColor }: colorProps) => borderColor};
+  position: relative;
+  transition: all 500ms cubic-bezier(0.77, 0, 0.175, 1);
+  cursor: pointer;
+  user-select: none;
+  height: 10vmin;
+  width: 30vmin;
+
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 5vmin;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-left: 2px solid ${({ borderColor }: colorProps) => borderColor};
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    transition: inherit;
+    z-index: -1;
+  }
+
+  &:hover {
+    color: #08080a;
+    transition-delay: 0.5s;
+  }
+
+  &:hover:before {
+    transition-delay: 0s;
+  }
+
+  &:hover:after {
+    background: ${({ borderColor }: colorProps) => borderColor};
+    transition-delay: 0.35s;
+  }
+
+  &:before,
+  &:after {
+    top: 0;
+    width: 0;
+    height: 100%;
+  }
+
+  &:before {
+    right: 0;
+    border: 2px solid ${({ borderColor }: colorProps) => borderColor};
+    border-left: 0;
+    border-right: 0;
+  }
+
+  &:after {
+    left: 0;
+  }
+
+  &:hover:before,
+  &:hover:after {
+    width: 100%;
+  }
 `;
 
 const showTopText = keyframes`

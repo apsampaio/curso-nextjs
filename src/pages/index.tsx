@@ -9,6 +9,8 @@ import {
   BackgroundShape,
   AgentBanner,
   AnimatedTitle,
+  ExploreButton,
+  ExploreButtonContainer,
 } from "../styles/pages/Home";
 
 interface HomeProps {
@@ -29,6 +31,14 @@ export default function Home({ agentData }: HomeProps) {
           <div>Showcase!</div>
         </div>
       </AnimatedTitle>
+      <ExploreButtonContainer>
+        <ExploreButton
+          className="from-top"
+          borderColor={agentData.data.shape_color[0].text}
+        >
+          EXPLORE
+        </ExploreButton>
+      </ExploreButtonContainer>
       <BackgroundShape />
       <AgentBanner src={agentData.data.agent_banner.url} />
     </div>
